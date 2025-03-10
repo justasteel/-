@@ -10,38 +10,29 @@ class Main {
         }
 
 
-
-
-        short a;
-        a = parseNumber(parts[0].trim());
+        byte a = (byte) parseNumber(parts[0].trim());
         String operator = parts[1].trim();
-        short b = parseNumber(parts[2].trim());
+        byte b = (byte) parseNumber(parts[2].trim());
 
 
-        switch (operator) {
-            case "+" -> {
-                return String.valueOf(a + b);
-            }
-            case "-" -> {
-                return String.valueOf(a - b);
-            }
-            case "*" -> {
-                return String.valueOf(a * b);
-            }
+        return switch (operator) {
+            case "+" -> String.valueOf(a + b);
+            case "-" -> String.valueOf(a - b);
+            case "*" -> String.valueOf(a * b);
             case "/" -> {
                 if (b == 0) {
                     throw new IllegalArgumentException("Деление на ноль не допускается.");
                 }
-                return String.valueOf(a / b);
+                yield String.valueOf(a / b);
             }
             default -> throw new IllegalArgumentException("Неподдерживаемый оператор: " + operator);
-        }
+        };
     }
 
-    private static short parseNumber(String str) {
-        short number;
+    private static byte parseNumber(String str) {
+        byte number;
         try {
-            number = (short) Integer.parseInt(str);
+            number = (byte) Integer.parseInt(str);
             if (number < 1 || number > 10) {
                 throw new IllegalArgumentException("Числа должны быть от 1 до 10 включительно.");
             }
@@ -56,15 +47,13 @@ class Main {
         for (String s : Arrays.asList("930JAS represents: Calculator ", "Введите выражение (например, '1 + 1'):"))
             System.out.println(s);
 
-        while (true) {
-            try {
-                String input = scanner.nextLine();
-                String result = calc(input);
-                System.out.println("Результат: " + result);
-            } catch (Exception e) {
-                System.out.println("Исключение: " + e.getMessage());
-                break;
-            }
+        while (true) try {
+            String input = scanner.nextLine();
+            String result = calc(input);
+            System.out.println("Результат: " + result);
+        } catch (Exception e) {
+            System.out.println("Исключение: " + e.getMessage());
+            break;
         }
 
         scanner.close();
