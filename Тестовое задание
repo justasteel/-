@@ -10,19 +10,17 @@ class Main {
         }
 
 
-        byte a = (byte) parseNumber(parts[0].trim());
+        byte a = (byte) parseNumber(parts[0].trim()); // нам не требуется обработка больше 128
         String operator = parts[1].trim();
         byte b = (byte) parseNumber(parts[2].trim());
 
 
         return switch (operator) {
-            case "+" -> String.valueOf(a + b);
+            case "+" -> String.valueOf(a + b); // Для удобства выьрал такой метод
             case "-" -> String.valueOf(a - b);
             case "*" -> String.valueOf(a * b);
             case "/" -> {
-                if (b == 0) {
-                    throw new IllegalArgumentException("Деление на ноль не допускается.");
-                }
+                assert b != 0 : "Деление на ноль не допускается.";
                 yield String.valueOf(a / b);
             }
             default -> throw new IllegalArgumentException("Неподдерживаемый оператор: " + operator);
@@ -44,7 +42,7 @@ class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        for (String s : Arrays.asList("930JAS represents: Calculator ", "Введите выражение (например, '1 + 1'):"))
+        for (String s : Arrays.asList("930JAS represents: Calculator ", "Введите выражение (например, '1 + 1'):"))//чисто личный прикол
             System.out.println(s);
 
         while (true) try {
@@ -58,4 +56,4 @@ class Main {
 
         scanner.close();
     }
-}
+} // учисля в выходные писал после работы, так что каша которая была хоть как то сократилась, работает а значит не трогаю.
